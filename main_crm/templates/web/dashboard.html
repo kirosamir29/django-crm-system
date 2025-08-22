@@ -1,5 +1,44 @@
 {% extends 'base.html'%}
 
 {%block content%}
+<h4 style="padding-left: 200px;">Welcome to the dashboard page,<b>{{user}}!</b></h4>
+<hr style="border : 1px solid ; margin: 30px 180px;">
+<div style="padding-left: 200px;">
+<a href="{% url 'createrecord' %}" class="btn-outline-primary">Create Record</a>
+</div>
+<hr style="border : 1px solid ; margin: 30px 180px;">
 
+
+<div class="text-center">
+    <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col">Tall</th>
+      <th scope="col">Weight</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for record in record %}
+    <tr>
+      <td>{{ record.id }}</td>
+      <td>{{ record.first_name }}</td>
+      <td>{{ record.last_name }}</td>
+      <td>{{ record.Category }}</td>
+      <td>{{ record.phone }}</td>
+      <td>{{ record.address }}</td>
+      <td>{{ record.tall }}</td>
+      <td>{{ record.weight }}</td>
+      <td>{{ record.created_at }}</td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+</div>
 {% endblock %}
