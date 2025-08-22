@@ -15,7 +15,7 @@
     </h3>   
     <br>
     <a href="{% url 'update_record' record.id %}" class="btn btn-outline-primary">Update</a>
-    <a href="{% url 'delete_record' record.id %}" class="btn btn-outline-danger">Delete</a>
+    <a href="{% url 'delete_record' record.id %}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-outline-danger">Delete</a>
 </div>
 
 

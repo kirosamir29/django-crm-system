@@ -8,6 +8,9 @@
 </div>
 <hr style="border : 1px solid ; margin: 30px 180px;">
 
+
+{% include 'parts/alerts.html'%}
+
 <div class="text-center" style="margin: 0px 100px;">
     <form action="{% url 'search' %}" method="GET">
         <input type="search" name="query" placeholder="Write somthing" class="form-control mr-sm-2">

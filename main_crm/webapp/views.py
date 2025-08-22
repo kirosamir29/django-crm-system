@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Record
 from django.db.models import Q
 import logging
+from django.contrib import messages
 
 # Create your views here.
 
@@ -19,7 +20,8 @@ def register(request):
         form=CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            #return redirect('login')
+            messages.success(request,'Registration Successfully')
+            return redirect('login')
 
     else:
         form=CreateUserForm()        
@@ -42,6 +44,7 @@ def my_login(request):
             
             if user is not None:
                 login(request,user)
+                messages.success(request,'Login Successfully')
                 return redirect('dashboard')
     else:
         form = LoginForm()
@@ -67,6 +70,7 @@ def create_record(request):
         form=CreateRecordForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request,'Record Created')
             return redirect('dashboard')
     else:
         form=CreateRecordForm()
@@ -93,6 +97,7 @@ def update_record(request,record_id):
         form=UpdateRecordForm(request.POST,instance=record)
         if form.is_valid():
             form.save()
+            messages.success(request,'Updated Successfully')
             return redirect('dashboard')
         
     context={
@@ -105,6 +110,7 @@ def update_record(request,record_id):
 def delete_record(request,record_id):
     record=get_object_or_404(Record,id=record_id)
     record.delete()
+    messages.success(request,'Record Deleted')
     return redirect('dashboard')
 
 
@@ -119,3 +125,7 @@ def search(request):
     except Exception as e:
         logger.error('Error during search: %s',e)
     return render(request,'web/search.html',context={'results':results,'query':query})    
+
+
+def custom_page_not_found(request,exception):
+    return render(request,'web/404.html',status=404)
