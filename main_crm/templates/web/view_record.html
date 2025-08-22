@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="cart" style="padding-left:100px ;padding-top: 100px;">
+    <h3>
+    <p><strong>ID: </strong>{{record.id}}</p>
+    <p><strong>Full Name: </strong>{{record.first_name|capfirst}} {{record.last_name}}</p>
+    <p><strong>Phone: </strong>{{record.phone}}</p>
+    <p><strong>Category: </strong>{{record.Category}}</p>
+    <p><strong>Address: </strong>{{record.address}}</p>
+    <p><strong>Tall: </strong>{{record.tall}}</p>
+    <p><strong>Weight: </strong>{{record.weight}}</p>
+    <p><strong>Creation Date: </strong>{{record.created_at}}</p>
+    </h3>   
+    <a href="{% url 'update_record' record.id %}" class="btn btn-outline-primary">Update</a>
+</div>
+
+
+{% endblock %}
