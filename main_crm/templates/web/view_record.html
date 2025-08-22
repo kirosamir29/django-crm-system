@@ -13,7 +13,9 @@
     <p><strong>Weight: </strong>{{record.weight}}</p>
     <p><strong>Creation Date: </strong>{{record.created_at}}</p>
     </h3>   
+    <br>
     <a href="{% url 'update_record' record.id %}" class="btn btn-outline-primary">Update</a>
+    <a href="{% url 'delete_record' record.id %}" class="btn btn-outline-danger">Delete</a>
 </div>
 
 

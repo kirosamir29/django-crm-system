@@ -3,6 +3,8 @@ from .forms import CreateUserForm,LoginForm,CreateRecordForm,UpdateRecordForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .models import Record
+from django.db.models import Q
+import logging
 
 # Create your views here.
 
@@ -83,7 +85,7 @@ def view_record(request,record_id):
     return render(request, 'web/view_record.html',context)
 
 
-
+@login_required(login_url='login')
 def update_record(request,record_id):
     record=get_object_or_404(Record,id=record_id)
     form=UpdateRecordForm(instance=record)
@@ -97,3 +99,23 @@ def update_record(request,record_id):
         'form':form
     }    
     return render(request,'web/update-record.html',context)
+
+
+@login_required(login_url='login')
+def delete_record(request,record_id):
+    record=get_object_or_404(Record,id=record_id)
+    record.delete()
+    return redirect('dashboard')
+
+
+logger =logging.getLogger(__name__)
+@login_required(login_url='login')
+def search(request):
+    query= request.GET.get('query')
+    results = []
+    try:
+        if query:
+            results=Record.objects.filter(Q(first_name__icontains=query)|Q(id__icontains=query))
+    except Exception as e:
+        logger.error('Error during search: %s',e)
+    return render(request,'web/search.html',context={'results':results,'query':query})    
